@@ -2,18 +2,21 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.sql2o.*;
+import java.util.Date;
 
 public class Task {
   private String description;
   private boolean completed;
   private LocalDateTime createdAt;
   private static ArrayList<Task> instances = new ArrayList<Task>();
+  private Date due_date;
   private int id;
   private int category_id;
 
-  public Task(String description, int category_id) {
+  public Task(String description, int category_id, Date due_date) {
     this.description = description;
     this.category_id = category_id;
+    this.due_date = due_date;
     // completed = false;
     // createdAt = LocalDateTime.now();
     instances.add(this);
@@ -75,12 +78,20 @@ public class Task {
 
   public void save() {
     try (Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO tasks(description, category_id) VALUES (:description, :category_id)";
+      String sql = "INSERT INTO tasks(description, category_id, due_date) VALUES (:description, :category_id, :due_date)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("description", this.description)
         .addParameter("category_id", this.category_id)
+        .addParameter("due_date", this.due_date)
         .executeUpdate()
         .getKey();
+    }
+  }
+
+  public void sort() {
+    try (Connection con = DB.sql2o.open()) {
+      String sql = "SELECT due_date FROM tasks ORDER BY due_date";
+      con.createQuery(sql, true).executeUpdate();
     }
   }
 }
