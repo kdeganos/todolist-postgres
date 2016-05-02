@@ -2,6 +2,8 @@ import org.sql2o.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+
 
 public class TaskTest {
 
@@ -99,6 +101,19 @@ public class TaskTest {
     Task savedTask = Task.find(myTask.getId());
     assertEquals(savedTask.getCategoryId(), myCategory.getId());
   }
+
+  @Test
+  public void getTasks_retrievesAllTasksFromDatabase_tasksList() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task firstTask = new Task("Mow the lawn", myCategory.getId());
+    firstTask.save();
+    Task secondTask = new Task("Do the dishes", myCategory.getId());
+    secondTask.save();
+    Task[] tasks = new Task [] { firstTask, secondTask };
+    assertTrue(myCategory.getTasks().containsAll(Arrays.asList(tasks)));
+  }
+
   // @Test
   // public void clear_emptiesAllTasksFromArrayList_0() {
   //   Task myTask = new Task("Mow the lawn");

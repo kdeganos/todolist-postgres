@@ -1,5 +1,6 @@
 import java.util.List;
 import org.sql2o.*;
+import java.util.Arrays;
 // import java.util.ArrayList;
 
 
@@ -67,6 +68,15 @@ public class Category {
         .addParameter("id", id)
         .executeAndFetchFirst(Category.class);
       return category;
+    }
+  }
+
+  public List<Task> getTasks() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM tasks where category_id=:id";
+      return con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeAndFetch(Task.class);
     }
   }
 
