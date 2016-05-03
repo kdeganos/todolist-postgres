@@ -9,11 +9,11 @@ public class Task {
   private boolean completed;
   private LocalDateTime createdAt;
   private static ArrayList<Task> instances = new ArrayList<Task>();
-  private Date due_date;
+  private String due_date;
   private int id;
   private int category_id;
 
-  public Task(String description, int category_id, Date due_date) {
+  public Task(String description, int category_id) {
     this.description = description;
     this.category_id = category_id;
     this.due_date = due_date;
@@ -88,10 +88,10 @@ public class Task {
     }
   }
 
-  public void sort() {
-    try (Connection con = DB.sql2o.open()) {
-      String sql = "SELECT due_date FROM tasks ORDER BY due_date";
-      con.createQuery(sql, true).executeUpdate();
-    }
-  }
+  // public void sort() {
+  //   try (Connection con = DB.sql2o.open()) {
+  //     String sql = "SELECT due_date FROM tasks ORDER BY due_date";
+  //     con.createQuery(sql, true).executeUpdate();
+  //   }
+  // }
 }

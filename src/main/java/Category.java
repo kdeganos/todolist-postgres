@@ -6,28 +6,15 @@ import java.util.Arrays;
 
 public class Category {
   private String name;
-  // private static ArrayList<Category> instances = new ArrayList<Category>();
   private int id;
-  // private ArrayList<Task> mTasks;
 
   public Category(String name) {
     this.name = name;
-    // instances.add(this);
-    // id = instances.size();
-    // mTasks = new ArrayList<Task>();
   }
 
   public String getName() {
     return name;
   }
-
-  // public static ArrayList<Category> all() {
-  //   return instances;
-  // }
-
-  // public static void clear() {
-  //   instances.clear();
-  // }
 
   public int getId() {
     return id;
@@ -53,7 +40,7 @@ public class Category {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO Categories(name) VALUES (:name)";
+      String sql = "INSERT INTO categories(name) VALUES (:name)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("name", this.name)
         .executeUpdate()
@@ -80,19 +67,4 @@ public class Category {
     }
   }
 
-  // public static Category find(int id) {
-  //   try {
-  //     return instances.get(id - 1);
-  //   } catch (IndexOutOfBoundsException e) {
-  //     return null;
-  //   }
-  // }
-  //
-  // public ArrayList<Task> getTasks() {
-  //   return mTasks;
-  // }
-  //
-  // public void addTask(Task task) {
-  //   mTasks.add(task);
-  // }
 }
