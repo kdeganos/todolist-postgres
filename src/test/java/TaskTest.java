@@ -27,13 +27,13 @@ public class TaskTest {
 
   @Test
   public void Task_instantiatesCorrectly_true() {
-    Task myTask = new Task("Mow the lawn", 1, "12/01/2016");
+    Task myTask = new Task("Mow the lawn", 1);
     assertEquals(true, myTask instanceof Task);
   }
 
   @Test
   public void Task_instantiatesWithDescription_String() {
-    Task myTask = new Task("Mow the lawn", 1, "12/01/2016");
+    Task myTask = new Task("Mow the lawn", 1);
     assertEquals("Mow the lawn", myTask.getDescription());
   }
   //
@@ -64,21 +64,21 @@ public class TaskTest {
 
   @Test
   public void equals_returnsTrueIfDescriptionsAreTheSame() {
-    Task firstTask = new Task("Mow the lawn", 1, "12/01/2016");
-    Task secondTask = new Task("Mow the lawn", 1, "12/01/2016");
+    Task firstTask = new Task("Mow the lawn", 1);
+    Task secondTask = new Task("Mow the lawn", 1);
     assertTrue(firstTask.equals(secondTask));
   }
 
   @Test
   public void save_returnsTrueIfDescriptionsAretheSame() {
-    Task myTask = new Task("Mow the lawn", 1, "12/01/2016");
+    Task myTask = new Task("Mow the lawn", 1);
     myTask.save();
     assertTrue(Task.all().get(0).equals(myTask));
   }
 
   @Test
   public void save_assignsIdToObject() {
-    Task myTask = new Task("Mow the lawn", 1, "12/01/2016");
+    Task myTask = new Task("Mow the lawn", 1);
     myTask.save();
     Task savedTask = Task.all().get(0);
     assertEquals(myTask.getId(),savedTask.getId());
@@ -86,7 +86,7 @@ public class TaskTest {
 
   @Test
   public void find_findsTaskInDatabase_true() {
-    Task myTask = new Task("Mow the lawn", 1, "12/01/2016");
+    Task myTask = new Task("Mow the lawn", 1);
     myTask.save();
     Task savedTask = Task.find(myTask.getId());
     assertTrue(myTask.equals(savedTask));
@@ -96,7 +96,7 @@ public class TaskTest {
   public void save_savesCategoryIdIntoDB_true() {
     Category myCategory = new Category("Household chores");
     myCategory.save();
-    Task myTask = new Task("Mow the lawn", myCategory.getId(), "12/01/2016");
+    Task myTask = new Task("Mow the lawn", myCategory.getId());
     myTask.save();
     Task savedTask = Task.find(myTask.getId());
     assertEquals(savedTask.getCategoryId(), myCategory.getId());
@@ -106,9 +106,9 @@ public class TaskTest {
   public void getTasks_retrievesAllTasksFromDatabase_tasksList() {
     Category myCategory = new Category("Household chores");
     myCategory.save();
-    Task firstTask = new Task("Mow the lawn", myCategory.getId(), "12/01/2016");
+    Task firstTask = new Task("Mow the lawn", myCategory.getId());
     firstTask.save();
-    Task secondTask = new Task("Do the dishes", myCategory.getId(), "12/01/2016");
+    Task secondTask = new Task("Do the dishes", myCategory.getId());
     secondTask.save();
     Task[] tasks = new Task [] { firstTask, secondTask };
     assertTrue(myCategory.getTasks().containsAll(Arrays.asList(tasks)));
@@ -116,7 +116,7 @@ public class TaskTest {
 
   // @Test
   // public void sort_sortsByDueDate() {
-  //   Task firstTask = new Task("Mow the lawn", 1, "12/01/2016");
+  //   Task firstTask = new Task("Mow the lawn", 1);
   //   firstTask.save();
   //   Task secondTask = new Task("Do the dishes", 1, "11/02/2016");
   //   secondTask.save();

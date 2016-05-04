@@ -25,7 +25,7 @@ public class AppTest extends FluentTest {
 
   @Before
   public void setUp() {
-    DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/to_do_test", null, null);
+    DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/todo_list_test", null, null);
   }
 
   @After
@@ -100,56 +100,56 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("Deposit paycheck");
   }
 
-  @Test
-  public void rootTest() {
-    goTo("http://localhost:4567/");
-    assertThat(pageSource()).contains("Task list!");
-  }
-
-  @Test
-  public void taskIsCreatedTest() {
-    goTo("http://localhost:4567/");
-    click("a", withText("Add a new task"));
-    fill("#description").with("Mow the lawn");
-    submit(".btn");
-    assertThat(pageSource()).contains("Your task has been saved.");
-  }
-
-  @Test
-  public void taskIsDisplayedTest() {
-    goTo("http://localhost:4567/tasks/new");
-    fill("#description").with("Mow the lawn");
-    submit(".btn");
-    click("a", withText("View tasks"));
-    assertThat(pageSource()).contains("Mow the lawn");
-  }
-
-  @Test
-  public void multipleTasksAreDisplayedTest() {
-    goTo("http://localhost:4567/tasks/new");
-    fill("#description").with("Mow the lawn");
-    submit(".btn");
-    goTo("http://localhost:4567/tasks/new");
-    fill("#description").with("Buy groceries");
-    submit(".btn");
-    click("a", withText("View tasks"));
-    assertThat(pageSource()).contains("Mow the lawn");
-    assertThat(pageSource()).contains("Buy groceries");
-  }
-
-  @Test
-  public void taskShowPageDisplaysDescription() {
-    goTo("http://localhost:4567/tasks/new");
-    fill("#description").with("Do the dishes");
-    submit(".btn");
-    click("a", withText("View tasks"));
-    click("a", withText("Do the dishes"));
-    assertThat(pageSource()).contains("Do the dishes");
-  }
-
-  @Test
-  public void taskNotFoundMessageShown() {
-    goTo("http://localhost:4567/tasks/999");
-    assertThat(pageSource()).contains("Task not found");
-  }
+  // @Test
+  // public void rootTest() {
+  //   goTo("http://localhost:4567/");
+  //   assertThat(pageSource()).contains("Task list!");
+  // }
+  //
+  // @Test
+  // public void taskIsCreatedTest() {
+  //   goTo("http://localhost:4567/");
+  //   click("a", withText("Add a new task"));
+  //   fill("#description").with("Mow the lawn");
+  //   submit(".btn");
+  //   assertThat(pageSource()).contains("Your task has been saved.");
+  // }
+  //
+  // @Test
+  // public void taskIsDisplayedTest() {
+  //   goTo("http://localhost:4567/tasks/new");
+  //   fill("#description").with("Mow the lawn");
+  //   submit(".btn");
+  //   click("a", withText("View tasks"));
+  //   assertThat(pageSource()).contains("Mow the lawn");
+  // }
+  //
+  // @Test
+  // public void multipleTasksAreDisplayedTest() {
+  //   goTo("http://localhost:4567/tasks/new");
+  //   fill("#description").with("Mow the lawn");
+  //   submit(".btn");
+  //   goTo("http://localhost:4567/tasks/new");
+  //   fill("#description").with("Buy groceries");
+  //   submit(".btn");
+  //   click("a", withText("View tasks"));
+  //   assertThat(pageSource()).contains("Mow the lawn");
+  //   assertThat(pageSource()).contains("Buy groceries");
+  // }
+  //
+  // @Test
+  // public void taskShowPageDisplaysDescription() {
+  //   goTo("http://localhost:4567/tasks/new");
+  //   fill("#description").with("Do the dishes");
+  //   submit(".btn");
+  //   click("a", withText("View tasks"));
+  //   click("a", withText("Do the dishes"));
+  //   assertThat(pageSource()).contains("Do the dishes");
+  // }
+  //
+  // @Test
+  // public void taskNotFoundMessageShown() {
+  //   goTo("http://localhost:4567/tasks/999");
+  //   assertThat(pageSource()).contains("Task not found");
+  // }
 }
